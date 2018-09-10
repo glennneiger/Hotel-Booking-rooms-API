@@ -6,6 +6,7 @@ const chalk = require('chalk')
 const express = require('express')
 const swaggerUi = require('swagger-ui-express')
 const parser = require('body-parser')
+const cors = require('cors')
 const swaggerDocument = require('./swagger.json')
 
 const port = process.env.PORT || 3000
@@ -13,7 +14,7 @@ const app = express()
 const server = http.createServer(app)
 require('./database')
 const api = require('./routes/rooms')
-
+app.use(cors())
 app.use(parser.json())
 app.use('/api/v1', api)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
@@ -29,7 +30,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ error: err.message })
 })
 
-function handleFatalError (err) {
+function handleFatalError(err) {
   console.error(`${chalk.red('[fatal error]')} ${err.message}`)
   console.error(err.stack)
   process.exit(1)
