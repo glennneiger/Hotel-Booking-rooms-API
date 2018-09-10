@@ -4,13 +4,17 @@ const debug = require('debug')('booking:api')
 const http = require('http')
 const chalk = require('chalk')
 const express = require('express')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
 const port = process.env.PORT || 3000
 const app = express()
 const server = http.createServer(app)
 
 const api = require('./routes/rooms')
-app.use('/api', api)
+
+app.use('/api/v1', api)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Express Error Handler
 app.use((err, req, res, next) => {
