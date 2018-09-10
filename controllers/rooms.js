@@ -1,13 +1,16 @@
 const debug = require('debug')('booking:routes')
+const Room = require('../models/rooms')
 
-const getAll = (req, res) => {
+const getAll = async (req, res) => {
   debug('A request has come to /rooms')
-  res.send({})
+  const rooms = await Room.find()
+  res.send(rooms)
 }
 
-const getOne = (req, res) => {
+const getOne = async (req, res) => {
   const { uuid } = req.params
-  res.send({ uuid })
+  const room = await Room.find({ _id: uuid })
+  res.send(room)
 }
 
 module.exports = {

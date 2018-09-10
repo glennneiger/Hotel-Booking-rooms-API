@@ -5,14 +5,16 @@ const http = require('http')
 const chalk = require('chalk')
 const express = require('express')
 const swaggerUi = require('swagger-ui-express')
+const parser = require('body-parser')
 const swaggerDocument = require('./swagger.json')
 
 const port = process.env.PORT || 3000
 const app = express()
 const server = http.createServer(app)
-
+require('./database')
 const api = require('./routes/rooms')
 
+app.use(parser.json())
 app.use('/api/v1', api)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
