@@ -13,8 +13,8 @@
   "basePath": "/api/v1",
   "tags": [
     {
-      "name": "Users",
-      "description": "API for users in the system"
+      "name": "Rooms",
+      "description": "API to book rooms in hotel"
     }
   ],
   "schemes": [
@@ -27,17 +27,42 @@
     "application/json"
   ],
   "paths": {
-    "/users": {
+    "/rooms": {
       "get": {
         "tags": [
-          "Users"
+          "Rooms"
         ],
-        "summary": "Get all users in system",
+        "summary": "Get all rooms in system",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Users"
+              "$ref": "#/definitions/Rooms"
+            }
+          }
+        }
+      }
+    },
+    "/rooms/{roomId}": {
+      "parameters": [
+        {
+          "name": "roomId",
+          "in": "path",
+          "required": true,
+          "description": "ID of room that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Get room with given ID",
+        "responses": {
+          "200": {
+            "description": "Room is found",
+            "schema": {
+              "$ref": "#/definitions/Room"
             }
           }
         }
@@ -45,9 +70,8 @@
     }
   },
   "definitions": {
-    "User": {
+    "Room": {
       "required": [
-        "email",
         "_id"
       ],
       "properties": {
@@ -55,21 +79,23 @@
           "type": "string",
           "uniqueItems": true
         },
-        "email": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "lastName": {
+        "feature_img" : {
           "type": "string"
         },
-        "firstName": {
+        "price" : {
+          "type": "number"
+        },
+        "description": {
           "type": "string"
+        },
+        "status": {
+          "type": "boolean"
         }
       }
     },
-    "Users": {
+    "Rooms": {
       "type": "array",
-      "$ref": "#/definitions/User"
+      "$ref": "#/definitions/Room"
     }
   }
 }

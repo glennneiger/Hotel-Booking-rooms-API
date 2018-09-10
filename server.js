@@ -16,7 +16,7 @@ const api = require('./routes/rooms')
 
 app.use(parser.json())
 app.use('/api/v1', api)
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Express Error Handler
 app.use((err, req, res, next) => {
