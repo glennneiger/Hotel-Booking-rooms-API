@@ -5,7 +5,7 @@ require('dotenv').load()
 
 const roomsDefault = require('./mockups/rooms')
 
-mongoose.connect('mongodb://localhost/hotel', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true })
   .then(() => {
     if (process.env.NODE_ENV === 'DEVELOPMENT') {
       mongoose.connection.db.dropDatabase().then(() => {
